@@ -1,0 +1,123 @@
+import pandas as pd
+import re
+
+# arabic words
+AR_year = "عام"
+AR_month = "شهر"
+AR_week = "الاسبوع"
+AR_date = "تاريخ"
+
+AR_sunday = "الاحد"
+
+def check_new_year(line):
+    """
+    If entering new year return the year as int else return None
+    """
+    for cell in line:
+        reg = re.findall(AR_year + r' (\d+)', cell)
+        if len(reg) > 0:
+            return reg[0]
+    return None
+
+
+def check_new_month(line):
+    """
+    If entering new month return the year as int else return None
+    """
+    for cell in line:
+        reg = re.findall(AR_month + r' (\d+)', cell)
+        if len(reg) > 0:
+            return reg[0]
+    return None
+
+
+def check_new_week(line):
+    """
+    If entering new week return the year as int else return None
+    """
+    for cell in line:
+        reg = re.findall(AR_week + r' (\d+)', cell)
+        if len(reg) > 0:
+            return True
+    return False
+
+
+def parse_line(line, year, month, day):
+    # date format: {d-m-y}
+    date = re.findall(r'(\d{1,2})\W\d+', line[0])[0] + f"-{month}-{year}"
+    day = day
+    customer = line[2]
+    working_hours = (int(line[3].split(':')[0]) + (float(line[3].split(':')[1])/60)) if line[3] != "" else 0
+    income = float(line[4]) if line[4] != "" else 0
+    outcome = float(line[5]) if line[5] != "" else 0
+    notes = line[6] 
+    self_salary = float(line[7])
+    tools_salary = float(line[8])
+    car = float(line[9]) if line[9] != "" else 0
+    worker = line[10]
+    worker_salary = float(line[11]) if line[11] != "" else 0
+
+
+    return (
+        date,
+        day,
+        customer,
+        working_hours,
+        income,
+        outcome,
+        notes,
+        self_salary,
+        tools_salary,
+        car,
+        worker,
+        worker_salary
+    )
+
+
+def read_data1():
+    curr_year = 0
+    curr_month = 0
+    curr_day = ""
+
+    res_data = [] # list of tuples
+
+    df = pd.read_csv('data1.csv')
+    # print(df)
+    # print("شهر" in ',شهر 11,2022,,,,,,,,,,,,,,')
+
+    data = open('data1.csv').read().split('\n')
+    for line in data:
+        line = line.split(',')[1::]
+
+        # TODO: check new week and continue if true
+        if check_new_week(line):
+            continue
+
+        # check if new year
+        new_year = check_new_year(line)
+        if new_year is not None:
+            curr_year = new_year
+        
+        # check if new month
+        new_month = check_new_month(line)
+        if new_month is not None:
+            curr_month = new_month
+        
+        # get data from a normal line
+        if AR_date in line[0]: # this line has columns names
+            continue
+        else: # this line contains data
+            if line[1] != "":
+                curr_day = line[1]
+            res_data.append(parse_line(line, curr_year, curr_month, curr_day))
+
+        print(check_new_year(line))
+
+
+def main():
+    read_data1()
+
+
+
+if __name__ == '__main__':
+    main()
