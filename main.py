@@ -42,17 +42,17 @@ def check_new_week(line):
     return False
 
 
-def parse_line(line, year, month, day):
+def parse_line(line, year, month, day, curr_date):
     # date format: {d-m-y}
-    date = re.findall(r'(\d{1,2})\W\d+', line[0])[0] + f"-{month}-{year}"
+    date = (re.findall(r'(\d{1,2})\W\d+', line[0])[0] + f"-{month}-{year}") if line[0] != "" else curr_date
     day = day
     customer = line[2]
     working_hours = (int(line[3].split(':')[0]) + (float(line[3].split(':')[1])/60)) if line[3] != "" else 0
     income = float(line[4]) if line[4] != "" else 0
     outcome = float(line[5]) if line[5] != "" else 0
     notes = line[6] 
-    self_salary = float(line[7])
-    tools_salary = float(line[8])
+    self_salary = float(line[7]) if line[7] != "" else 0
+    tools_salary = float(line[8]) if line[8] != "" else 0
     car = float(line[9]) if line[9] != "" else 0
     worker = line[10]
     worker_salary = float(line[11]) if line[11] != "" else 0
@@ -78,14 +78,15 @@ def read_data1():
     curr_year = 0
     curr_month = 0
     curr_day = ""
+    curr_date = 0
 
     res_data = [] # list of tuples
 
-    df = pd.read_csv('data1.csv')
+    # df = pd.read_csv('../data1new.csv')
     # print(df)
     # print("شهر" in ',شهر 11,2022,,,,,,,,,,,,,,')
 
-    data = open('data1.csv').read().split('\n')
+    data = open('../data1new.csv').read().split('\n')
     for line in data:
         line = line.split(',')[1::]
 
@@ -97,11 +98,13 @@ def read_data1():
         new_year = check_new_year(line)
         if new_year is not None:
             curr_year = new_year
+            continue
         
         # check if new month
         new_month = check_new_month(line)
         if new_month is not None:
             curr_month = new_month
+            continue
         
         # get data from a normal line
         if AR_date in line[0]: # this line has columns names
@@ -109,9 +112,11 @@ def read_data1():
         else: # this line contains data
             if line[1] != "":
                 curr_day = line[1]
-            res_data.append(parse_line(line, curr_year, curr_month, curr_day))
+            line_data = parse_line(line, curr_year, curr_month, curr_day, curr_date)
+            curr_date = line_data[0]
+            res_data.append(line_data)
 
-        print(check_new_year(line))
+        print(line_data)
 
 
 def main():

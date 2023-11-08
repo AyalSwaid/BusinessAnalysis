@@ -1,0 +1,25 @@
+<mxfile host="app.diagrams.net" modified="2023-11-08T22:52:43.313Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="RxTcw2kKAcqigfFl0qe3" version="22.1.0" type="device">
+  <diagram name="Page-1" id="7Qcv4-hlBXuv7NBkXK4x">
+    <mxGraphModel dx="1290" dy="542" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="W8_u7DkTs8IuW8rnQCpY-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="W8_u7DkTs8IuW8rnQCpY-1" target="W8_u7DkTs8IuW8rnQCpY-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="W8_u7DkTs8IuW8rnQCpY-1" value="read csv files" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#66FF66;" vertex="1" parent="1">
+          <mxGeometry x="40" y="205" width="160" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="W8_u7DkTs8IuW8rnQCpY-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="W8_u7DkTs8IuW8rnQCpY-2" target="W8_u7DkTs8IuW8rnQCpY-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="W8_u7DkTs8IuW8rnQCpY-2" value="put them in a database tables" style="whiteSpace=wrap;html=1;rounded=1;fillColor=#FF8000;" vertex="1" parent="1">
+          <mxGeometry x="320" y="203.75" width="150" height="122.5" as="geometry" />
+        </mxCell>
+        <mxCell id="W8_u7DkTs8IuW8rnQCpY-4" value="Make visualiztions using db tables" style="whiteSpace=wrap;html=1;rounded=1;fillColor=#3399FF;" vertex="1" parent="1">
+          <mxGeometry x="560" y="211.25" width="150" height="107.5" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,4 @@
+This is notes of what to change in the Excel file
+1. set all working hours cells to the format (%d:%d) and not string or single digit
+2. change the location of "car & fuel" to the end of the columns
+3.  
