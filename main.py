@@ -25,7 +25,7 @@ def check_new_month(line):
     If entering new month return the year as int else return None
     """
     for cell in line:
-        reg = re.findall(AR_month + r' (\d+)', cell)
+        reg = re.findall(AR_month + r'.*?(\d+)', cell)
         if len(reg) > 0:
             return reg[0]
     return None
@@ -36,7 +36,7 @@ def check_new_week(line):
     If entering new week return the year as int else return None
     """
     for cell in line:
-        reg = re.findall(AR_week + r' (\d+)', cell)
+        reg = re.findall(AR_week + r'.*(\d+)', cell)
         if len(reg) > 0:
             return True
     return False
@@ -44,11 +44,20 @@ def check_new_week(line):
 
 def parse_line(line, year, month, day, curr_date):
     # date format: {d-m-y}
-    date = (re.findall(r'(\d{1,2})\W\d+', line[0])[0] + f"-{month}-{year}") if line[0] != "" else curr_date
+    date = (re.findall(r'(\d{1,2})\W+\d+\.?', line[0])[0] + f"-{month}-{year}") if line[0] != "" else curr_date
     day = day
     customer = line[2]
     working_hours = (int(line[3].split(':')[0]) + (float(line[3].split(':')[1])/60)) if line[3] != "" else 0
-    income = float(line[4]) if line[4] != "" else 0
+    
+    # doing income
+    reg_income = re.findall(r'/(\d+)/', line[4])
+    if line[4] == "" or 'v' in line[4].lower():
+        income = 0
+    elif len(reg_income) > 0:
+        income = float(reg_income[0])
+    else:
+        income = float(line[4])
+
     outcome = float(line[5]) if line[5] != "" else 0
     notes = line[6] 
     self_salary = float(line[7]) if line[7] != "" else 0
@@ -90,7 +99,11 @@ def read_data1():
     for line in data:
         line = line.split(',')[1::]
 
-        # TODO: check new week and continue if true
+        # ignore short lines
+        if len(line) < 12:
+            continue
+
+        #check new week and continue if true
         if check_new_week(line):
             continue
 
@@ -109,14 +122,14 @@ def read_data1():
         # get data from a normal line
         if AR_date in line[0]: # this line has columns names
             continue
-        else: # this line contains data
+        elif not ((line[0] == "") and (line[2] == "")): # this line contains data TODO: may contain a bug
             if line[1] != "":
                 curr_day = line[1]
             line_data = parse_line(line, curr_year, curr_month, curr_day, curr_date)
             curr_date = line_data[0]
             res_data.append(line_data)
 
-        print(line_data)
+            print(line_data)
 
 
 def main():

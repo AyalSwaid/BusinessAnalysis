@@ -1,4 +1,10 @@
 This is notes of what to change in the Excel file
 1. set all working hours cells to the format (%d:%d) and not string or single digit
 2. change the location of "car & fuel" to the end of the columns
-3.  
+3. in date 30/5/2023 the income was #SPELL, i changed it to 300 
+4. in date 23/6/2023 the date was y, i fixed it
+5. in date 20/7/2023 the "car & fuel" was 40*40*40, i changed it to 40
+6. in date 23/7/2023 the income was 00/20/00, i changed it to 0:20 
+7. in date 29/7/2023 the date was 0, i fixed it
+8. in date 31/8/2023 the working hours was 1, i changed it to 1:00
+9. line 600 has special content, deleted
