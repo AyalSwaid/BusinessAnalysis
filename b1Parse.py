@@ -126,4 +126,5 @@ def read_data1():
             curr_date = line_data[0]
             res_data.append(line_data)
 
-            print(line_data)
+            # print(line_data)
+    return res_data

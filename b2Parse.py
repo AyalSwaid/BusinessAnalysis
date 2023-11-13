@@ -2,10 +2,11 @@ import datetime
 import re
 
 AR_name = "الاسم"
+
 def parse_const_cust_data(line, index):
     name = line[index["name"]]
     if name != "":
-        period = line[index[period]]
+        period = line[index["period"]]
         return (name, period)
     return None
 
@@ -44,14 +45,15 @@ def read_data2():
 
         if line_num > 4:
             chic_data = parse_chic_data(line, chic_index)
-            chics_list.append(chic_data)
+            if chic_data is not None:
+                chics_list.append(chic_data)
 
-        # if line_num > 2:
-            # const_customer_data = parse_const_cust_data(line, constant_index)
-            # 
-            # if const_customer_data is not None:
-            #     constant_customers_list.append(const_customer_data)
-            print(chic_data)
+        if line_num > 2:
+            const_customer_data = parse_const_cust_data(line, constant_index)
+            
+            if const_customer_data is not None:
+                constant_customers_list.append(const_customer_data)
+                # print(const_customer_data)
     return chics_list, constant_customers_list
 
-    print(lines)
+    # print(lines)
