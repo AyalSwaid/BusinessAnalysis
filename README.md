@@ -20,5 +20,11 @@ Analysis of gardenning business
 - total unpaid amounts from chics
 - customers who use chics the most 
 
-## const customers
+### const customers
 - show const customer and periodic time
+
+
+# Future plans
+- make a table for customers details (like name, phone number, location, etc)
+- put the location of each work in invoice table
+- 
