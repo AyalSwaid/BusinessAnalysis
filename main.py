@@ -32,3 +32,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    dataset["kpi"] = dataset.apply(lambda r: 1 if r["working_hours"] == 0 else r["income"]/(r["working_hours"]*100), axis=1)
